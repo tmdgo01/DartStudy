@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 void main() {
   // 복습
   // 정수형 변수 선언
@@ -159,6 +161,7 @@ void main() {
       }
     }
     print(row);
+    print("");
   }
 
   // 5x5 격자에서 X 모양 출력
@@ -172,6 +175,7 @@ void main() {
       }
     }
     print(row5);
+    print("");
   }
 
   int getMax(var argv1, var argv2) {
@@ -180,6 +184,50 @@ void main() {
     } else {
       return argv2;
     }
+  }
+
+  // 예제 코드(코드 수정: argv2가 기본 값을 갖도록)
+  int getMaxDefault(var argv2, [var argv1 = 1]) {
+    if (argv1 >= argv2) {
+      return argv1;
+    } else {
+      return argv2;
+    }
+  }
+
+  // 예제 코드(코드 수정: 기본값을 갖는 매개변수)
+  int getSum([int a = 0, int b = 0]) {
+    return a + b;
+  }
+
+  // 예제 코드 사칙 연산 함수(빼기, 곱하기, 나누기)
+  int getSubtract(int a, int b) {
+    return a - b;
+  }
+
+  int getMultiply(int a, int b) {
+    return a * b;
+  }
+
+  double getDivide(int a, int b) {
+    if (b == 0) {
+      throw Exception("0으로 나눌 수 없습니다.");
+    }
+    return a / b;
+  }
+
+  // 예제 코드 사칙 연산 함수 호출
+  var sum = getSum(10, 20);
+  print("10 + 20 = $sum");
+  var subtract = getSubtract(20, 10);
+  print("20 - 10 = $subtract");
+  var multiply = getMultiply(10, 20);
+  print("10 * 20 = $multiply");
+  try {
+    var divide = getDivide(20, 1);
+    print("20 / 1 = $divide");
+  } catch (e) {
+    print("오류 발생: $e");
   }
 
   var number1 = getMax(1, 2);
@@ -192,9 +240,10 @@ void main() {
     double mp = 0.0,
     String job = '백수',
   }) {
+    print("플레이어 정보");
     print("플레이어 이름: $name");
     print("레벨: $level");
-    print("마나 포인트: $mp");
+    print("마나: $mp");
     print("직업: $job");
     print("");
   }
@@ -207,4 +256,66 @@ void main() {
   ); // named parameters
 
   var player2 = creatPlayer(name: "이승혜"); // named parameters, 기본값
+
+  void printMessage(var header, var message) {
+    print("[$header] $message");
+  }
+
+  // 1 ~ 50까지 정수 중에서 소수 출력(나열)
+  for (int i = 2; i <= 50; i++) {
+    bool isPrime = true;
+    for (int j = 2; j <= i ~/ 2; j++) {
+      if (i % j == 0) {
+        isPrime = false;
+        break;
+      }
+    }
+    if (isPrime) {
+      print(i);
+    }
+  }
+
+  int iInteger = 10;
+  printMessage("1-1", iInteger.abs());
+  printMessage("1-2", iInteger.gcd(6));
+  printMessage("1-3", iInteger.toString());
+  printMessage("1-4", 2.abs());
+  printMessage("1-5", 2.gcd(6));
+  printMessage("1-6", 2.toString());
+
+  double dDouble = 10.5;
+  printMessage("2-1", dDouble.abs());
+  printMessage("2-2", dDouble.toString());
+  printMessage("2-3", dDouble.floor());
+  printMessage("2-4", dDouble.round());
+  printMessage("2-5", 1.8.abs());
+  printMessage("2-6", 1.8.toString());
+  printMessage("2-7", 1.8.floor());
+  printMessage("2-8", 1.8.round());
+
+  String sString = "Wanna Go Home";
+  printMessage("3-1", sString.toLowerCase());
+  printMessage("3-2", sString.toUpperCase());
+  printMessage("3-3", sString.length);
+  printMessage("3-4", sString.substring(0, 5));
+  printMessage("3-5", sString[11]);
+
+  bool bBoolean = true;
+  printMessage("4-1", bBoolean.toString());
+  printMessage("5-1", iInteger is int);
+  printMessage("5-2", dDouble is double);
+  printMessage("5-3", sString is String);
+  printMessage("5-4", bBoolean is bool);
+  printMessage("5-5", iInteger is! int);
+  printMessage("5-6", dDouble is! double);
+  printMessage("5-7", sString is! String);
+  printMessage("5-8", bBoolean is! bool);
+
+  var tmpS = "String";
+  printMessage("5-9", tmpS is String);
+
+  var tmpI = 123;
+  printMessage("5-10", tmpI is int);
+  printMessage("5-11", tmpI is String);
+  printMessage("5-12", tmpI is Double);
 }
