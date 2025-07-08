@@ -69,6 +69,7 @@ void main() {
       break;
   }
 
+  // TODO: switch문을 if else if로 변환
   String day2 = '수요일';
   if (day2 == '월요일') {
     print('오늘은 월요일입니다.');
@@ -76,5 +77,31 @@ void main() {
     print('오늘은 화요일입니다.');
   } else {
     print('오늘은 다른 요일입니다.');
+  }
+
+  var programTermination = 'NORMAL'; // 프로그램 종료 상태
+  assert(programTermination == 'NORMAL', '프로그램이 정상 종료되지 않았습니다.');
+  print("[19] program terminated in nomal");
+  // assert는 사용이 드묾 > 앱 종료가 되어버리기 때문에
+
+  // 반복문
+  var count = 0;
+  var number = 0;
+  for (number = 0; number < 3; number++) {
+    print("yo");
+  }
+
+  // TODO: for문으로 구구단 1단 출력
+  for (int i = 1; i <= 9; i++) {
+    print("1 x $i = ${1 * i}");
+  }
+
+  // 1단부터 9단까지 출력
+  for (int j = 1; j <= 9; j++) {
+    print("$j단");
+    for (int k = 1; k <= 9; k++) {
+      print("$j x $k = ${j * k}");
+    }
+    print("");
   }
 }
