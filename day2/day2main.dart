@@ -255,7 +255,7 @@ void main() {
     job: "마법사",
   ); // named parameters
 
-  var player2 = creatPlayer(name: "이승혜"); // named parameters, 기본값
+  var player2 = creatPlayer(name: "나"); // named parameters, 기본값
 
   void printMessage(var header, var message) {
     print("[$header] $message");
@@ -283,7 +283,7 @@ void main() {
   printMessage("1-5", 2.gcd(6));
   printMessage("1-6", 2.toString());
 
-  double dDouble = 10.5;
+  double dDouble = 10.523;
   printMessage("2-1", dDouble.abs());
   printMessage("2-2", dDouble.toString());
   printMessage("2-3", dDouble.floor());
