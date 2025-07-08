@@ -51,6 +51,7 @@ void main() {
   print("[제 이름은 $name, 번호는 $phone이며, 나이는 $ageDisplay입니다.]");
 
   // 주희는 영수와 369 게임을 하기로 했습니다. 1 ~ 40까지의 정수 중 '3'이 포함된 숫자가 있을 경우 '짝' 출력, 아닌 경울 숫자를 출력하는 for문, while문 코드 작성
+  // for
   for (int i = 1; i <= 40; i++) {
     // 3, 6, 9가 포함된 숫자
     // if (i.toString().contains('3') || i.toString().contains('6') || i.toString().contains('9')) {
@@ -59,5 +60,15 @@ void main() {
     } else {
       print(i);
     }
+  }
+  // while
+  int j = 1;
+  while (j <= 40) {
+    if (j.toString().contains('3')) {
+      print('짝');
+    } else {
+      print(j);
+    }
+    j++;
   }
 }
