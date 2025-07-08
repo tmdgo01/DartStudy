@@ -173,4 +173,38 @@ void main() {
     }
     print(row5);
   }
+
+  int getMax(var argv1, var argv2) {
+    if (argv1 >= argv2) {
+      return argv1;
+    } else {
+      return argv2;
+    }
+  }
+
+  var number1 = getMax(1, 2);
+  print(number1);
+
+  // example
+  void creatPlayer({
+    required name,
+    int level = 1,
+    double mp = 0.0,
+    String job = '백수',
+  }) {
+    print("플레이어 이름: $name");
+    print("레벨: $level");
+    print("마나 포인트: $mp");
+    print("직업: $job");
+    print("");
+  }
+
+  var player1 = creatPlayer(
+    name: "zl존법ㅅr",
+    level: 13,
+    mp: 100.0,
+    job: "마법사",
+  ); // named parameters
+
+  var player2 = creatPlayer(name: "이승혜"); // named parameters, 기본값
 }
