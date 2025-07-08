@@ -85,7 +85,6 @@ void main() {
   // assert는 사용이 드묾 > 앱 종료가 되어버리기 때문에
 
   // 반복문
-  var count = 0;
   var number = 0;
   for (number = 0; number < 3; number++) {
     print("yo");
@@ -103,5 +102,75 @@ void main() {
       print("$j x $k = ${j * k}");
     }
     print("");
+  }
+
+  // while문
+  int count = 1;
+  int number2 = 1;
+
+  while (count <= 3) {
+    print("$number2 x $count = ${number2 * count}");
+    count++;
+  }
+
+  // do while문
+  do {
+    print("dowhile : $number2 x $count = ${number2 * count}");
+    count++;
+  } while (count <= 6);
+
+  // continue와 break
+  for (count = number = 1; number <= 9; number++) {
+    if (number > 4) {
+      print("break - $number");
+      break; // 4보다 크면 반복문 종료
+    } else if ((number % 9) != 1) {
+      print("continue - $number");
+      continue; // 9로 나눈 나머지가 1이 아니면 다음 반복으로 넘어감
+    } else {
+      print("calculate - $number");
+      while (count <= 3) {
+        print("$number x $count = ${number * count}");
+        count++;
+      }
+      count = 1; // count 초기화
+    }
+  }
+
+  // 구구단 짝수단 출력
+  for (int dan = 2; dan <= 9; dan += 2) {
+    print("$dan 단");
+    for (int i = 1; i <= 9; i++) {
+      print("$dan x $i = ${dan * i}");
+    }
+    print(""); // 단 사이에 줄바꿈
+  }
+
+  // 3x3 격자에서 X 모양 출력
+  for (int i = 0; i < 3; i++) {
+    String row = ''; // 각 행을 저장할 문자열
+    for (int j = 0; j < 3; j++) {
+      // X 모양: 양쪽 대각선 (i == j) 또는 (i + j == 2)
+      if (i == j || i + j == 2) {
+        // 대각선 위치
+        row += 'X ';
+      } else {
+        row += 'O ';
+      }
+    }
+    print(row);
+  }
+
+  // 5x5 격자에서 X 모양 출력
+  for (int i = 0; i < 5; i++) {
+    String row5 = '';
+    for (int j = 0; j < 5; j++) {
+      if (i == j || i + j == 4) {
+        row5 += "X ";
+      } else {
+        row5 += "O ";
+      }
+    }
+    print(row5);
   }
 }
