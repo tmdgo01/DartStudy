@@ -57,13 +57,13 @@ void main() {
 
   print("3 in klist ${klist.contains(3)}"); // 포함된 숫자가 있는지 bool type
   print("5 in klist ${klist.contains(5)}");
-  // 두 set의 합집합
+  // 합집합
   print("klist.union(setEmpty) : ${klist.union(setEmpty)}");
 
-  // 두 set의 교집합
+  // 교집합
   print("klist.intersection(klist) ${klist.intersection(klist)}");
 
-  // 두 set의 차집합
+  // 차집합
   print("klist.difference(setEmpty) ${klist.difference(setEmpty)}");
 
   print("klist.intersection(klist) ${klist.intersection(klist)}");
@@ -143,6 +143,8 @@ void main() {
   print("set1: $set1");
   print("set2: $set2");
   print("combinedSet: $combinedSet");
+  //   set1.addAll(set2);
+  //   print(set1);
 
   // TODO : Set 심화 과정 - 두 개의 세트에서 합집합, 교집합, 차집합 순서로 새로운 세트 출력
   print("set1.union(set2) : ${set1.union(set2)}");
