@@ -230,10 +230,24 @@ void main() {
   print(temp);
   print(nulltemp);
 
+  // Integer Class
   var innt = Integer();
   var inntt = Integer(3);
-  print("innt.value ${innt._value}");
-  print(inntt._value);
+  print("innt.value ${innt._val}");
+  print(inntt._val);
+
+  print(inntt.get());
+
+  inntt.set(10);
+  print(inntt.get());
+
+  // String class
+  var string12 = StringClass(("home"));
+  print(string12._val);
+  print(string12.get());
+
+  // asString
+  print(innt.asString);
 }
 
 void printStar(var item) {
@@ -247,10 +261,37 @@ enum City { Gwangju, Busan, Yongin }
 
 // 생성자
 class Integer {
-  late int _value;
+  late int _val;
   Integer([int givenValue = 0]) {
-    _value = givenValue;
+    _val = givenValue;
   }
+
+  int get() {
+    return _val;
+  }
+
+  void set(int getValue) {
+    _val = getValue;
+  }
+
+  String get asString => "$_val";
+  // TODO: int 형태로 반환하는 한 줄 getter 작성
+  int get asInt => _val;
 }
 
 class TimemachineInteger extends Integer {}
+
+class StringClass {
+  late String _val;
+  // 생성자
+  StringClass([String givenString = '']) {
+    _val = givenString;
+  }
+  String get() {
+    return _val;
+  }
+
+  void set(String givenString) {
+    _val = givenString;
+  }
+}
