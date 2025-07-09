@@ -39,16 +39,17 @@ void main() {
   String bmiFormatted = bmi.toStringAsFixed(2);
   print("[영재의 BMI 점수는 ${bmiFormatted}이며, $status입니다.]");
 
-  // 3. 사용자 이름, 번호, 나이 출력
+  // 3. 사용자 이름, 번호, 나이 출력 함수
   // 양식 : [제 이름은 $name, 번호는 $phone이며, 나이는 $age입니다.]
   // 나이는 필수 입력이 아니며, 나이를 입력하지 않은 경우를 '비공개'로 처리
-  String name = "짱구";
-  String phone = "010-0000-0000";
-  int? age;
-  // int?는 age가 null일 수 있음을 의미
   // age가 null인 경우 '비공개'로 처리
-  String ageDisplay = age != null ? age.toString() : '비공개';
-  print("[제 이름은 $name, 번호는 $phone이며, 나이는 $ageDisplay입니다.]");
+  void profile({required String name, required String phone, dynamic age}) {
+    String ageDisplay = (age != null) ? age.toString() : '비공개';
+    print("[제 이름은 $name, 번호는 $phone이며, 나이는 $ageDisplay입니다.]");
+  }
+
+  profile(name: "집", phone: "010-1234-5678", age: 25);
+  profile(name: "잉잉이", phone: "010-0000-0000");
 
   // 주희는 영수와 369 게임을 하기로 했습니다. 1 ~ 40까지의 정수 중 '3'이 포함된 숫자가 있을 경우 '짝' 출력, 아닌 경우 숫자를 출력하는 for문, while문 코드 작성
   // for
