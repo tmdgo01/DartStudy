@@ -57,13 +57,13 @@ void main() {
 
   print("3 in klist ${klist.contains(3)}"); // 포함된 숫자가 있는지 bool type
   print("5 in klist ${klist.contains(5)}");
-  // 두 set의 합집합 출력
+  // 두 set의 합집합
   print("klist.union(setEmpty) : ${klist.union(setEmpty)}");
 
-  // 두 set의 교집합 출력
+  // 두 set의 교집합
   print("klist.intersection(klist) ${klist.intersection(klist)}");
 
-  // klist에서 setEmpty에 없는 값만 출력
+  // 두 set의 차집합
   print("klist.difference(setEmpty) ${klist.difference(setEmpty)}");
 
   print("klist.intersection(klist) ${klist.intersection(klist)}");
@@ -121,16 +121,40 @@ void main() {
   });
   print("dbFruit after value change: $dbFruit");
 
-  // TODO: 1 ~ 10 list 생성, 첫 번째 인덱스에 9 넣기
+  // TODO : 1 ~ 10 list 생성, 첫 번째 인덱스에 9 넣기
   List<int> numList = List.generate(10, (index) => index + 1);
   numList[0] = 9;
   print("numList: $numList");
 
-  // TODO: 6번째 인덱스에 존재하는 값이 뭔지 출력하기
+  // TODO : 6번째 인덱스에 존재하는 값이 뭔지 출력하기
   print(numList.indexOf(6));
 
   // TODO : "1", "2", "3"을 저장한 새로운 list 생성, numList 리스트 추가
   List<String> Slist = ["1", "2", "3"];
   Slist.addAll(numList.map((e) => e.toString()));
   print(Slist);
+
+  // TODO : 문자열 "가" ~ "사"를 포함한 Set 생성,
+  // "라" ~ "하"를 포함한 Set 추가 생성,
+  // 두 Set을 포함한 새로운 Set 생성
+  Set<String> set1 = {"가", "나", "다", "라", "마", "바", "사"};
+  Set<String> set2 = {"라", "마", "바", "사", "아", "자", "차", "카", "타", "파", "하"};
+  Set<String> combinedSet = {...set1, ...set2};
+  print("set1: $set1");
+  print("set2: $set2");
+  print("combinedSet: $combinedSet");
+
+  // TODO : Set 심화 과정 - 두 개의 세트에서 합집합, 교집합, 차집합 순서로 새로운 세트 출력
+  print("set1.union(set2) : ${set1.union(set2)}");
+  print("set1.intersection(set2) : ${set1.intersection(set2)}");
+  print("set1.difference(set2) : ${set1.difference(set2)}");
+
+  // TODO : 과일 상점을 뜻하는 shop 변수에
+  // apple은 10개, banana는 5개, mango는 3개가 존재하도록 Map을 생성한 뒤,
+  // 이 상점에서 망고를 판매하고 있는지 확인하고 판매하고 있다면
+  // [이 상점에서는 망고를 $count개 판매하고 있습니다.] 출력
+  Map<String, int> shopdb = {"apple": 10, "banana": 5, "mango": 3};
+  if (shopdb.containsKey("mango")) {
+    print("이 상점에서는 망고를 ${shopdb["mango"]}개 판매하고 있습니다.");
+  }
 }
