@@ -157,6 +157,100 @@ void main() {
   // [이 상점에서는 망고를 $count개 판매하고 있습니다.] 출력
   Map<String, int> shopdb = {"apple": 10, "banana": 5, "mango": 3};
   if (shopdb.containsKey("mango")) {
+    // int count = 0;
+    // count = shopdb["mango"];
     print("이 상점에서는 망고를 ${shopdb["mango"]}개 판매하고 있습니다.");
   }
+  shopdb["mango"] = (shopdb["mango"] ?? 0) - 2;
+  print(shopdb);
+
+  // 유니코드
+  print("\u{AC00}");
+
+  Map dicEmoji = {
+    "A": "\u{0041}",
+    "a": "\u{0061}",
+    "clap": "\u{1f44f}",
+    "smile": "\u{1F642}",
+    "star": "\u{2605}",
+  };
+  print(dicEmoji);
+
+  List qlist = [];
+  qlist
+    ..addAll([2, 1])
+    ..add(0)
+    ..sort((a, b) => a.compareTo(b));
+  print(qlist);
+  qlist.forEach((item) => {printStar(item)});
+
+  qlist.forEach(printStar);
+  // 중첩 함수
+  void yo() {
+    print("yo");
+  }
+
+  yo();
+
+  void smile(var item) {
+    print("\u{1f642} $item \u{1f642}");
+  }
+
+  smile(111);
+
+  List tlist = [1, 2, 3];
+  if (tlist.isEmpty) {
+    smile("Empty list");
+  } else {
+    smile("no Empty list");
+    yo();
+  }
+  tlist.isEmpty ? smile("Empty list") : smile("no Empty list");
+  tlist.first == 1 ? smile("첫 번째 = 1") : smile("첫 번째 != 1");
+
+  // 조건적 표현
+  // A ? B : C
+  // A 조건을 만족하면 B, 아니면 C
+
+  // 16 진수
+  num var1 = 0x01;
+  num var2 = 0xff;
+  print("$var1, $var2");
+
+  num vari = int.parse('1');
+  num vard = double.parse('1.1');
+  print("$vari, $vard");
+
+  print(Color.values);
+  Color color = Color.red;
+  print(color);
+
+  int temp = 3;
+  int? nulltemp;
+  print(temp);
+  print(nulltemp);
+
+  var innt = Integer();
+  var inntt = Integer(3);
+  print("innt.value ${innt._value}");
+  print(inntt._value);
 }
+
+void printStar(var item) {
+  print("\u{2605} $item \u{2605}");
+}
+
+// 나열형 데이터
+enum Color { red, green, blue }
+
+enum City { Gwangju, Busan, Yongin }
+
+// 생성자
+class Integer {
+  late int _value;
+  Integer([int givenValue = 0]) {
+    _value = givenValue;
+  }
+}
+
+class TimemachineInteger extends Integer {}
