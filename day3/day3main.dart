@@ -185,6 +185,7 @@ void main() {
   qlist.forEach((item) => {printStar(item)});
 
   qlist.forEach(printStar);
+
   // 중첩 함수
   void yo() {
     print("yo");
@@ -235,7 +236,7 @@ void main() {
   var inntt = Integer(3);
   print("innt.value ${innt._val}");
   print(inntt._val);
-
+  // getter
   print(inntt.get());
 
   inntt.set(10);
@@ -248,6 +249,11 @@ void main() {
 
   // asString
   print(innt.asString);
+
+  // setter
+  var num1 = Integer(1231231231);
+  num1.changeNumber = 11;
+  print(num1);
 }
 
 void printStar(var item) {
@@ -259,24 +265,42 @@ enum Color { red, green, blue }
 
 enum City { Gwangju, Busan, Yongin }
 
-// 생성자
+// 생성자가 있어야 main에서 사용 가능
+// 생성자 이름() {};
+// 생성자 이름은 클래스의 이름과 동일
+// 생성자의 소괄호 안에는 사용자가 입력해준 값을 인스턴스 변수에 담기 위해 사용
+// 생성할 때 변수를 입력하고 싶지 않다면 대괄호 [] 안에 변수를 선언, 기본 값을 주면 됨
+
 class Integer {
   late int _val;
   Integer([int givenValue = 0]) {
     _val = givenValue;
   }
-
+  // 인스턴스 변수를 반환하기 위한 함수
   int get() {
     return _val;
   }
 
+  // 인스턴스 변수를 수정하기 위한 함수
   void set(int getValue) {
     _val = getValue;
   }
 
+  // get, set을 계속 작성하기 너무 번거로움 > 정리해서 getter, setter
+  // getter 사용법
+  // 반환할 자료 타입 get 함수명 => 반환할 값
+  // String get returning => "$_val";
+  // 인스턴스 변수 _val
+
+  // setter 사용법
+  // void set 함수명 => 변경할 값;
+  void set changeNumber(int given) => _val = given;
+
   String get asString => "$_val";
   // TODO: int 형태로 반환하는 한 줄 getter 작성
   int get asInt => _val;
+
+  set val(int givenNumber) => _val = givenNumber;
 }
 
 class TimemachineInteger extends Integer {}
@@ -294,4 +318,30 @@ class StringClass {
   void set(String givenString) {
     _val = givenString;
   }
+}
+
+class Player {
+  // TODO: 인스턴스 변수로 name, age를 선언
+  // 생성자 작성
+  // 사용자의 이름을 반환하는 getter 함수
+  // 사용자의 나이를 반환하는 getter 함수
+  // 사용자의 이름을 반환하는 setter 함수
+  // 사용자의 나이를 반환하는 setter 함수
+  late String _name;
+  late int _age;
+
+  // 생성자
+  Player(this._name, this._age);
+
+  // 이름 getter
+  String get name => _name;
+
+  // 나이 getter
+  int get age => _age;
+
+  // 이름 setter
+  set name(String name) => _name = name;
+
+  // 나이 setter
+  set age(int age) => _age = age;
 }
