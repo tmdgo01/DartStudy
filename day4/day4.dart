@@ -6,7 +6,7 @@
 // 클래스 내에서는 연산자를 함수명으로 사용해야 할 때 연산자 앞에 무엇을 작성해야 하는가?
 // operator
 
-// code 작성
+// code 작성 1
 // 사람을 뜻하는 Human 클래스를 생성,
 // 이름(name), 나이, 성별을 담을 수 있는 인스턴스 변수 생성
 // 모든 값들은 클래스 호출 시 필수적으로 입력
@@ -25,11 +25,12 @@ class Human {
   int get age => _age;
   String get gender => _gender;
 
-  void proflie(_name, _age, _gender) {
+  void profile() {
     print("[안녕하세요. 제 이름은 $name이며, $age세 $gender입니다.]");
   }
 }
 
+// code 작성 2
 // 탈것이라는 뜻을 가진 Vehicle 추상 클래스에 drive 기능 추가
 // 이후 Boat, Car 클래스 구현
 // 각각의 클래스 별 drive 함수 실행 시
@@ -51,13 +52,13 @@ class Car {
 }
 
 void main() {
-  // 1번
+  // 1
   Human A = Human("김철수", 26, "남성");
-  A.proflie("김철수", 26, "남성");
+  A.profile();
   var boat = Boat();
   var car = Car();
 
-  // 2번
+  // 2
   boat.drive();
   car.drive();
 }
