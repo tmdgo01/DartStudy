@@ -19,7 +19,7 @@ void main() {
   print("${newnum1.add(4)}, $newnum2");
 
   newnum1.set(9);
-  newnum1.changeNumber = 2;
+  newnum1.changeInteger = 2;
   print(newnum1);
 
   newnum1.set(10);
@@ -29,9 +29,14 @@ void main() {
 
 class Integer {
   late int _val;
-  Integer([int givenValue = 0]) {
-    _val = givenValue;
-  }
+  // 생성자 type1
+  // Integer([int givenValue = 0]) {
+  //   _val = givenValue;
+  // }
+
+  // 생성자 type2
+  Integer([int givenVal = 0]) : _val = givenVal {}
+
   // 인스턴스 변수를 반환하기 위한 함수
   int get() => _val;
   void set(int getVal) => _val = getVal;
@@ -45,9 +50,13 @@ class Integer {
   // setter 사용법
   // void set 함수명 => 변경할 값;
   void set changeNumber(int given) => _val = given;
+
   String get asString => "$_val";
   int get asInt => _val;
+
   set val(int givenNumber) => _val = givenNumber;
+
+  set changeInteger(int givenNumber) => _val = givenNumber;
 
   // givenVal = integer value
   // overloading 사용법 = 기존에 있는 클래스에 추가적인 함수를 만들어서 클래스를 강화
@@ -101,7 +110,12 @@ class nInteger extends Integer {
     super.set(givenVal);
   }
 
-  String get asString => "변경 값 $_val, 기존 값 $_list";
+  @override
+  String toString() {
+    return "$_val";
+  }
+
+  String get asString => "현재 값 $_val, 기존 값 $_list";
 
   List getOld() {
     return _list;
