@@ -12,6 +12,19 @@ void main() {
   print(num1.div(num2.get().toDouble()));
 
   print(num1.add(num2.get()));
+
+  var newnum1 = nInteger();
+  var newnum2 = nInteger(3);
+
+  print("${newnum1.add(4)}, $newnum2");
+
+  newnum1.set(9);
+  newnum1.changeNumber = 2;
+  print(newnum1);
+
+  newnum1.set(10);
+  print(newnum1.getOld());
+  print(newnum1.asString);
 }
 
 class Integer {
@@ -51,6 +64,9 @@ class Integer {
 
   int add(int givenVal) {
     return _val + givenVal;
+    // var result = _val * givenVal.get();
+    // var result2
+    // return reslut2
   }
 
   int sub(int givenVal) {
@@ -66,5 +82,28 @@ class Integer {
       print("Cant divid 0");
     }
     return _val / givenVal;
+  }
+
+  // String get asString => "$_val";
+}
+
+// class newInteger extends(다음으로 적힐 클래스에 있는 정보 포함)
+class nInteger extends Integer {
+  List<int> _list = [];
+  nInteger([int givenVal = 0]) {
+    _val = givenVal;
+  }
+
+  @override // Integer class + a
+  void set(int givenVal) {
+    _list.add(_val);
+    // super : class 생성 시 extends 뒤에 쓴 class
+    super.set(givenVal);
+  }
+
+  String get asString => "변경 값 $_val, 기존 값 $_list";
+
+  List getOld() {
+    return _list;
   }
 }
