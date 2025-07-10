@@ -6,33 +6,37 @@ void main() {
   player.setName("RuMira");
   player.setAge(27);
 
-  print({player.returnName(), player.returnAge()});
+  print("수정 후: ${player.returnName()}, ${player.returnAge()}");
+
+  // getter 사용
+  print("getter name: ${player.getterName}");
+  print("getter age: ${player.getterAge}");
+
+  // setter 사용
+  player.setterName = "Mira";
+  player.setterAge = 30;
+
+  print("setter 적용 후: ${player.getterName}, ${player.getterAge}");
 }
 
 class Player {
   late String name;
   late int age;
 
-  Player(String givenName, int givenAge) {
+  Player(String givenName, [int givenAge = 1]) {
     name = givenName;
     age = givenAge;
   }
 
-  // get func
-  // 반환할 자료형 함수 이름() {return 반환할 값}
-  String returnName() {
-    return name;
-  }
+  String returnName() => name;
+  int returnAge() => age;
 
-  int returnAge() {
-    return age;
-  }
+  void setName(String givenName) => name = givenName;
+  void setAge(int givenAge) => age = givenAge;
 
-  void setName(String givenName) {
-    name = givenName;
-  }
+  String get getterName => name;
+  int get getterAge => age;
 
-  void setAge(int givenAge) {
-    age = givenAge;
-  }
+  set setterName(String givenName) => name = givenName;
+  set setterAge(int givenAge) => age = givenAge;
 }
