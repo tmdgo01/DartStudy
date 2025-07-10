@@ -73,10 +73,13 @@ class Player {
       int want = order[fish] ?? 0;
       int stock = store.fishdb[fish] ?? 0;
       if (stock < want || stock <= 0) {
-        print("구매할 수 있는 생선이 없습니다. ($fish)");
+        print("구매할 수 있는 [$fish]이(가) 없습니다. ");
         continue;
       }
       // 가게 재고 차감
+      if (want > stock) {
+        want = stock;
+      }
       store.fishdb[fish] = stock - want;
       // 가방에 추가
       backpack[fish] = (backpack[fish] ?? 0) + want;
@@ -93,7 +96,9 @@ class FishStore {
   // 생선 가게의 생선 수 확인
   void printFishStock() {
     print("생선 가게 재고: $fishdb");
-    // if 생선 가게의 재고를 넘어가게 구매하면 최대 수량까지만 구매 가능
+    // TODO : if 생선 가게의 재고를 넘어가게 구매하면 최대 수량까지만 구매 가능
+    // 아직 못한 부분
+    fishdb.updateAll((key, value) => value < 0 ? 0 : value);
     for (var entry in fishdb.entries) {
       if (entry.value < 0) {
         fishdb[entry.key] = 0;
