@@ -25,6 +25,13 @@ void main() {
   newnum1.set(10);
   print(newnum1.getOld());
   print(newnum1.asString);
+
+  newnum1.set(2);
+  newnum1.set(4);
+
+  newnum1.activated = false;
+  newnum1.set(1);
+  newnum1.set(6);
 }
 
 class Integer {
@@ -97,7 +104,7 @@ class Integer {
 }
 
 // class newInteger extends(다음으로 적힐 클래스에 있는 정보 포함)
-class nInteger extends Integer {
+class nInteger extends Integer with ActivationFlag {
   List<int> _list = [];
   nInteger([int givenVal = 0]) {
     _val = givenVal;
@@ -108,6 +115,12 @@ class nInteger extends Integer {
     _list.add(_val);
     // super : class 생성 시 extends 뒤에 쓴 class
     super.set(givenVal);
+    if (activated == true) {
+      _list.add(_val);
+      print("set func 실행, 현재 저장 결과 $_list");
+    } else {
+      print("set func 실행하지 않음");
+    }
   }
 
   @override
@@ -120,4 +133,10 @@ class nInteger extends Integer {
   List getOld() {
     return _list;
   }
+}
+
+mixin ActivationFlag {
+  bool _flag = true;
+  bool get activated => _flag;
+  set activated(bool givenFlag) => (_flag = givenFlag);
 }
