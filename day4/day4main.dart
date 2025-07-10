@@ -135,8 +135,31 @@ class nInteger extends Integer with ActivationFlag {
   }
 }
 
-mixin ActivationFlag {
+mixin ActivationFlag on Integer {
   bool _flag = true;
   bool get activated => _flag;
   set activated(bool givenFlag) => (_flag = givenFlag);
+}
+
+// abstract : 객체를 만들 수 없음
+abstract class Rectangle {
+  int cx = 0, cy = 0;
+  void draw();
+}
+
+class Square {}
+
+class Circle implements Rectangle {
+  @override
+  int cx = 0, cy = 0;
+  late int radius;
+
+  @override
+  void draw() {
+    print("원을 그린다.");
+  }
+
+  Circle([int givenRadius = 1]) {
+    radius = givenRadius;
+  }
 }
