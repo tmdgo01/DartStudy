@@ -32,6 +32,15 @@ void main() {
   newnum1.activated = false;
   newnum1.set(1);
   newnum1.set(6);
+
+  // 추상 클래스
+  var circle = Circle(10);
+  var square = Square(10, 20);
+  // 추상 클래스는 실체를 가질 수 없음
+  // 오류 : var rect = Rectangle();
+
+  circle.draw();
+  square.draw();
 }
 
 class Integer {
@@ -141,13 +150,31 @@ mixin ActivationFlag on Integer {
   set activated(bool givenFlag) => (_flag = givenFlag);
 }
 
-// abstract : 객체를 만들 수 없음
+// abstract(추상 클래스) : 객체를 만들 수 없음
+// 여러 클래스가 공통적으로 가지고 있는 기능이지만
+// 각 클래스마다 작동하는 부분이 조금씩 다를 경우
+// '이런 기능이 있다'라고 작성
 abstract class Rectangle {
   int cx = 0, cy = 0;
   void draw();
 }
 
-class Square {}
+class Square implements Rectangle {
+  late int rkfh, tpfh;
+
+  @override
+  int cx = 0, cy = 0;
+  late int radius;
+
+  @override
+  void draw() {
+    print("$rkfh x $tpfh draw Square");
+  }
+
+  Square([int givenrkfh = 7, giventpfh = 7])
+    : rkfh = givenrkfh,
+      tpfh = giventpfh;
+}
 
 class Circle implements Rectangle {
   @override
@@ -156,7 +183,7 @@ class Circle implements Rectangle {
 
   @override
   void draw() {
-    print("원을 그린다.");
+    print("radius : $radius인 원을 그린다.");
   }
 
   Circle([int givenRadius = 1]) {
