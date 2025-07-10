@@ -41,6 +41,14 @@ void main() {
 
   circle.draw();
   square.draw();
+
+  circle.moveR(3);
+  print("이동 ${circle.cx}");
+
+  circle.moveR();
+  print("이동 ${circle.cx}");
+  circle.setColor = Color.red;
+  print("color : ${circle.getColor.name}");
 }
 
 class Integer {
@@ -157,6 +165,10 @@ mixin ActivationFlag on Integer {
 abstract class Rectangle {
   int cx = 0, cy = 0;
   void draw();
+
+  Color color = Color.black;
+  Color get getColor => color;
+  set setColor(Color c) => color = c;
 }
 
 class Square implements Rectangle {
@@ -168,12 +180,25 @@ class Square implements Rectangle {
 
   @override
   void draw() {
-    print("$rkfh x $tpfh draw Square");
+    print("$rkfh x $tpfh draw Square, $color");
   }
+
+  @override
+  Color color = Color.black;
+
+  @override
+  Color get getColor => color;
+
+  @override
+  set setColor(Color c) => color = c;
 
   Square([int givenrkfh = 7, giventpfh = 7])
     : rkfh = givenrkfh,
       tpfh = giventpfh;
+
+  void moveR([int step = 1]) {
+    cx += step;
+  }
 }
 
 class Circle implements Rectangle {
@@ -186,7 +211,49 @@ class Circle implements Rectangle {
     print("radius : $radius인 원을 그린다.");
   }
 
+  @override
+  Color color = Color.black;
+
+  @override
+  Color get getColor => color;
+
+  @override
+  set setColor(Color c) => color = c;
+
   Circle([int givenRadius = 1]) {
     radius = givenRadius;
   }
+
+  void moveR([int step = 1]) {
+    cx += step;
+  }
 }
+
+class Triangle implements Rectangle {
+  @override
+  int cx = 0, cy = 0;
+
+  late int base, height;
+
+  Triangle([this.base = 1, this.height = 1]);
+
+  @override
+  void draw() {
+    print("삼각형 그리기 $base x $height");
+
+    void moveR([int step = 1]) {
+      cx += step;
+    }
+  }
+
+  @override
+  Color color = Color.black;
+
+  @override
+  Color get getColor => color;
+
+  @override
+  set setColor(Color c) => color = c;
+}
+
+enum Color { black, pink, green, blue, red, white }
