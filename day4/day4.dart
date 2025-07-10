@@ -53,12 +53,15 @@ class Car {
 
 void main() {
   // 1
-  Human A = Human("김철수", 26, "남성");
+  Human A = Human("Georgia", 44, "여성");
   A.profile();
-  var boat = Boat();
-  var car = Car();
+
+  Human B = Human("김철수", 26, "남성");
+  B.profile();
 
   // 2
+  var boat = Boat();
+  var car = Car();
   boat.drive();
   car.drive();
 }
