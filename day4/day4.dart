@@ -5,6 +5,9 @@ void main() {
 
   test1.set(1);
   test2.set(3);
+  print(test1.get());
+  test1.set(5);
+  print(test1);
   print("$test1, $test2");
 }
 
@@ -38,9 +41,9 @@ class gInteger extends Integer {
 
   // Integer class에 존재하는 set func을 @override하고 값이 변경될 때마다 glist에 변경된 값을 저장하는 func
   @override
-  void set(int givenval) {
+  void set(int userinput) {
     glist.add(val);
-    super.set(givenval);
+    super.set(userinput);
   }
 
   @override
