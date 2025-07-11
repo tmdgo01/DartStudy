@@ -57,6 +57,61 @@ void main() async {
   var harvesting = serveharvesting();
   print("수확 $harvesting");
   print("오늘 할 일 종료");
+
+  // 오후 문제
+  // 10초 후에 메시지 출력
+  print("yo");
+  await Future.delayed(Duration(seconds: 10), () => print("10sec after"));
+  print("yo");
+
+  // hello 함수 실행 후 완료되었을 때 메시지 출력
+  await hello(); // 5초 기다린 후 "hello" 출력
+  print("hello 출력");
+
+  // 예외 처리로 프로그램 안정성 강화
+  int a = 1;
+  int b = 0;
+  int result = 0;
+
+  // try-catch
+  try {
+    result = a ~/ b;
+  } catch (error) {
+    print("catch [$error]");
+
+    b = 1;
+    print("catch b를 1로 변경 후 다시 실행");
+    result = a ~/ b;
+  }
+  print("result : $result");
+
+  // try-on
+  try {
+    result = a ~/ b;
+  } on UnsupportedError {
+    print("on UnsupportedError Error b의 값이 0 입니다.");
+    b = 1;
+    print("b를 1로 변경한 후 재시도");
+    result = a ~/ b;
+  } catch (error) {
+    print("예외 처리");
+  }
+  print("result : $result");
+
+  // finally
+  try {
+    result = a ~/ b;
+  } on UnsupportedError {
+    print("on UnsupportedError Error b의 값이 0 입니다.");
+    b = 1;
+    print("b를 1로 변경한 후 재시도");
+    result = a ~/ b;
+  } catch (error) {
+    print("예외 처리");
+  } finally {
+    print("그래임마");
+  }
+  print("result : $result");
 }
 
 // 문제 1
@@ -194,11 +249,20 @@ class Flag {
 // async 함수 내의 값을 return 값을 반환해야 하는 경우 그 값을 Future<> 내에 작성
 Future<String> serveharvesting() async {
   var harvesting = await simulateharvesting();
-  print("농작물 $harvesting 수확하기");
+  print("농작물 [$harvesting] 수확하기");
 
   return harvesting;
 }
 
 Future<String> simulateharvesting() {
   return Future.delayed(Duration(seconds: 2), () => "여름 자두");
+}
+
+// 오후 문제
+Future<String> hello() async {
+  // 5초 후에 "hello"를 반환
+  await Future.delayed(Duration(seconds: 5));
+  print("hello");
+
+  return "hello";
 }
