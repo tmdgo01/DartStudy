@@ -1,3 +1,5 @@
+import 'dart:async';
+
 void main() async {
   // List<int> list = [2, 3];
 
@@ -112,6 +114,33 @@ void main() async {
     print("그래임마");
   }
   print("result : $result");
+
+  try {
+    result = calc(a, b);
+  } on UnsupportedError {
+    print("on UnsupportedError Error b의 값이 0 입니다.");
+    b = 1;
+    print("b를 1로 변경한 후 재시도");
+    result = a ~/ b;
+  } catch (error) {
+    print("예외 처리");
+  } finally {
+    print("그래임마");
+  }
+  print("result : $result");
+
+  try {
+    result = calc(a, b);
+  } on NegativeDivisorException {
+    print("on UnsupportedError Error b의 값이 0 입니다.");
+    b = 1;
+    print("b를 1로 변경한 후 재시도");
+    result = a ~/ b;
+  } catch (error) {
+    print("예외 처리");
+  } finally {
+    print("그래임마");
+  }
 }
 
 // 문제 1
@@ -265,4 +294,22 @@ Future<String> hello() async {
   print("hello");
 
   return "hello";
+}
+
+int calc(int x, int y) {
+  int result = 0;
+  if (result == 0) {
+    // throw : 에러를 만들어서 코드 진행을 막고 싶을 때
+    throw NegativeDivisorException();
+  } else {
+    result = x ~/ y;
+  }
+  return result;
+}
+
+class NegativeDivisorException implements Exception {
+  @override
+  String toString() {
+    return "0으로 나눌 수 없음";
+  }
 }
