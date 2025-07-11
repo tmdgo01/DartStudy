@@ -40,7 +40,7 @@ void main() async {
 // 다음 코드가 순차적으로 A, B, C 를 출력해야 한다고 가정했을 때,
 // 비어있는 부분을 작성해 코드를 완성하세요.
 Future<String> doSomething() async {
-  await Future.delayed(Duration(seconds: 1));
+  await Future.delayed(Duration(seconds: 0));
   print("B");
   return "B";
 }
