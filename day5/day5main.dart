@@ -1,5 +1,3 @@
-import '../day4/day4main.dart';
-
 void main() async {
   // List<int> list = [2, 3];
 
@@ -56,8 +54,8 @@ void main() async {
     await Future.delayed(Duration(seconds: 1));
   }
 
-  var customerorder = servecustomer();
-  print("수확 $customerorder");
+  var harvesting = serveharvesting();
+  print("수확 $harvesting");
   print("오늘 할 일 종료");
 }
 
@@ -194,13 +192,13 @@ class Flag {
 
 // java의 promiss
 // async 함수 내의 값을 return 값을 반환해야 하는 경우 그 값을 Future<> 내에 작성
-Future<String> servecustomer() async {
-  var customerorder = await simulatecustomerorder();
-  print("농작물 $customerorder 수확");
+Future<String> serveharvesting() async {
+  var harvesting = await simulateharvesting();
+  print("농작물 $harvesting 수확하기");
 
-  return customerorder;
+  return harvesting;
 }
 
-Future<String> simulatecustomerorder() {
+Future<String> simulateharvesting() {
   return Future.delayed(Duration(seconds: 2), () => "여름 자두");
 }
