@@ -1,5 +1,5 @@
 // O, X
-// 클래스 내에서는 같은 이름을 가진 함수를 사용할 수 있다(O, 오버로딩)
+// 클래스 내에서는 같은 이름을 가진 함수를 사용할 수 있다(x)
 // 추상 클래스는 main() 함수에서 사용할 수 있다(X)
 
 // 주관식
@@ -39,13 +39,15 @@ abstract class Vehicle {
   void drive();
 }
 
-class Boat {
+class Boat implements Vehicle {
+  @override
   void drive() {
     print("[보트가 물 위를 떠다닙니다.]");
   }
 }
 
-class Car {
+class Car implements Vehicle {
+  @override
   void drive() {
     print("[자동차가 도로를 달립니다.]");
   }
