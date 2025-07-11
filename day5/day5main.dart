@@ -1,4 +1,6 @@
-void main() {
+import '../day4/day4main.dart';
+
+void main() async {
   // List<int> list = [2, 3];
 
   // var backpack = bag(["watch", 10]);
@@ -35,6 +37,28 @@ void main() {
   print(shop.getsellingitem());
   shop.changeitem(100.1);
   print(shop.getsellingitem());
+
+  print(1 + 1);
+
+  // 동작 예약, main 함수 옆에 async 작성
+  await Future.delayed(Duration(seconds: 3), () => print(" 1 home @3sec"));
+  print("home");
+
+  Future.delayed(Duration(seconds: 1), () => print(2222222));
+
+  print((2 + 2) / 2);
+
+  var finished = Flag(false);
+  print("a");
+  await dobg(5, finished);
+
+  while (finished.activated == false) {
+    await Future.delayed(Duration(seconds: 1));
+  }
+
+  var customerorder = servecustomer();
+  print("수확 $customerorder");
+  print("오늘 할 일 종료");
 }
 
 // 문제 1
@@ -42,7 +66,6 @@ void main() {
 // item 이라는 인스턴스 변수
 // 여러가지 물건을 팖
 // 다음의 main 함수를 정상 작동하게 만드는 generic 클래스 생성
-
 class Shop<T> {
   late dynamic item;
 
@@ -140,4 +163,44 @@ class stringbox {
   void set(String nitem) {
     item = nitem;
   }
+}
+
+// dart의 기본 작업 : 동기
+// 함수 내에서 await을 이용하여 비동기 프로그램을 작성할 때 async 필요
+
+void doBackgroundJob(int jobtime) {
+  if (jobtime > 0) {
+    print("doBackgroundeJob : $jobtime ");
+  }
+}
+
+dobg(int time, var jobend) {
+  if (time > 0) {
+    print("$time/s 남았습니다.");
+    Future.delayed(Duration(seconds: 1), () => dobg(time - 1, jobend));
+  } else {
+    print("백그라운드 작업 완료");
+    jobend.activated = true;
+  }
+}
+
+class Flag {
+  late bool _flag;
+
+  Flag(bool gFlag) : _flag = gFlag;
+  bool get activated => _flag;
+  set activated(bool gflag) => _flag = gflag;
+}
+
+// java의 promiss
+// async 함수 내의 값을 return 값을 반환해야 하는 경우 그 값을 Future<> 내에 작성
+Future<String> servecustomer() async {
+  var customerorder = await simulatecustomerorder();
+  print("농작물 $customerorder 수확");
+
+  return customerorder;
+}
+
+Future<String> simulatecustomerorder() {
+  return Future.delayed(Duration(seconds: 2), () => "여름 자두");
 }
