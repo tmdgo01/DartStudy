@@ -1,5 +1,3 @@
-import 'dart:vmservice_io';
-
 //////////////////////////////////////////////
 // 1
 // 상점을 뜻하는 Shop 제네릭 클래스를 구현하고, 비어있는 부분을 작성해 코드를 완성하세요.
@@ -54,7 +52,6 @@ Future<String> doSomething() async {
 // 이후 num의 타입이 string 이 아닐 경우,
 // NoStringException 클래스를 통해 다음의 내용이 출력되게 구현하세요.
 // [해당 값은 문자열이 아닙니다.]
-
 class NoStringException {
   final String message;
   NoStringException([this.message = "[해당 값은 문자열이 아닙니다.]"]);
