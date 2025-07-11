@@ -21,6 +21,40 @@ void main() {
   print(Newbox.get());
   Newbox.set("집");
   print(Newbox.get());
+
+  Newbox..set("찌낀빤난나");
+  print(Newbox.get());
+
+  // changecount는 왜 필요한 건지 모르겠다
+  print(Newbox.totalcount);
+  print(newbox.changecount);
+
+  // 문제 1
+  var shop = Shop("슬리퍼");
+  shop.changeitem("운동화");
+  print(shop.getsellingitem());
+  shop.changeitem(100.1);
+  print(shop.getsellingitem());
+}
+
+// 문제 1
+// Shop 클래스 생성
+// item 이라는 인스턴스 변수
+// 여러가지 물건을 팖
+// 다음의 main 함수를 정상 작동하게 만드는 generic 클래스 생성
+
+class Shop<T> {
+  late dynamic item;
+
+  Shop(this.item); // 생성자에서 item 초기화
+
+  void changeitem(T newItem) {
+    item = newItem;
+  }
+
+  T getsellingitem() {
+    return item;
+  }
 }
 
 // <T> 사용자가 여러 Type을 사용할 수 있도록
@@ -50,6 +84,12 @@ class bag<T> {
 class newbox<H> {
   late dynamic item;
 
+  // set을 이용하여 값이 몇 번 바뀌었는지 저장할 용도
+  static late int changecount = 0;
+
+  // 해당 클래스에서만 사용하기로 한 객체에서만 사용
+  int totalcount = 0;
+
   // 사용자가 입력한 gvalue의 자료형을 따라감
   // 사용자가 숫자를 입력하면 -> int
   newbox(H gvalue) {
@@ -62,6 +102,8 @@ class newbox<H> {
 
   void set(dynamic nitem) {
     item = nitem;
+    changecount = changecount + 1;
+    totalcount = totalcount + 1;
   }
 }
 
