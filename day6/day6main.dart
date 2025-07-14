@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 void main() {
   // 한글 인식 가능 : utf8
@@ -135,7 +136,9 @@ void main() {
   var userScore = 0;
   var computerScore = 0;
   var rounds = 0;
+  var rng = Random();
   stdout.writeln("게임을 시작한다. 3번 먼저 이겨야 산다.");
+  // 3 선승
   while (userScore < 3 && computerScore < 3) {
     stdout.write("가위, 바위, 보!: ");
     var userChoice = stdin.readLineSync(encoding: utf8);
@@ -144,8 +147,8 @@ void main() {
       stdout.writeln("장난하나. 다시.");
       continue;
     }
-
-    var computerChoice = choices[DateTime.now().millisecondsSinceEpoch % 3];
+    // import 'dart:math'
+    var computerChoice = choices[rng.nextInt(3)];
     stdout.writeln("[System]: $computerChoice");
 
     if (userChoice == computerChoice) {
