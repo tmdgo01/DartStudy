@@ -2,7 +2,6 @@
 // 각 라인 별 숫자들을 더한 값을 다음과 같이 저장하여 result.txt 파일에 저장
 // C:\Users\ASD\Desktop\test\day6\quiz.txt
 import 'dart:io';
-import 'dart:convert';
 
 // 파일을 읽어서 문자열로 반환하는 함수
 Future<String> readFileToString(String filename) async {
@@ -39,6 +38,7 @@ Future<void> writeListToFile(String filename, List<int> data) async {
 void main() {
   final filePath = "C:/Users/ASD/Desktop/test/day6/quiz.txt";
   final resultPath = "C:/Users/ASD/Desktop/test/day6/result.txt";
+  final resultPath2 = "C:/Users/ASD/Desktop/test/day6/result2.txt";
   // 파일을 줄 단위로 읽기
   // 각 줄의 숫자들을 더한 값을 result.txt에 저장
   readFileToList(filePath).then((lines) {
@@ -50,5 +50,16 @@ void main() {
     }
     writeListToFile(resultPath, results);
   });
-  stdout.writeln("파일 읽기 및 쓰기 작업이 완료되었습니다.");
+  stdout.writeln("파일 읽기 및 쓰기 작업 1이 완료되었습니다.");
+
+  readFileToList(filePath).then((lines) {
+    var results2 = <int>[];
+    for (var line in lines) {
+      var numbers = line.split(',').map(int.parse);
+      var mul = numbers.reduce((a, b) => a * b);
+      results2.add(mul);
+    }
+    writeListToFile(resultPath2, results2);
+  });
+  stdout.writeln("파일 읽기 및 쓰기 작업 2가 완료되었습니다.");
 }
