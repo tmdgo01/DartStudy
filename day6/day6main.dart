@@ -49,21 +49,56 @@ void main() {
   // 숫자 입력:
   // 곱할 숫자 입력:
   // 결과:
-  // 다른 수를 곱할 까요? (y/n):
+  // 다음 곱셈을 준비할까요? (y/n):
+
   stdout.write("숫자 입력: ");
-  var num1 = int.parse(stdin.readLineSync()!);
+  var firstnum = int.parse(stdin.readLineSync()!);
+
   stdout.write("곱할 숫자 입력: ");
-  var num2 = int.parse(stdin.readLineSync()!);
-  stdout.writeln("결과: $num1 * $num2 = ${num1 * num2}");
-  stdout.write("다른 수를 곱할 까요? (y/n): ");
-  var choice = stdin.readLineSync();
-  while (choice == 'y' || choice == 'Y') {
+  var secondnum = int.parse(stdin.readLineSync()!);
+
+  stdout.writeln("결과: $firstnum * $secondnum = ${firstnum * secondnum}");
+
+  stdout.write("다음 곱셈을 준비할까요? (y/n): ");
+  var againstinput = stdin.readLineSync();
+
+  while (againstinput == 'y' || againstinput == 'Y') {
     stdout.write("숫자 입력: ");
-    num1 = int.parse(stdin.readLineSync()!);
+    firstnum = int.parse(stdin.readLineSync()!);
     stdout.write("곱할 숫자 입력: ");
-    num2 = int.parse(stdin.readLineSync()!);
-    stdout.writeln("결과: $num1 * $num2 = ${num1 * num2}");
+    secondnum = int.parse(stdin.readLineSync()!);
+    stdout.writeln("결과: $firstnum * $secondnum = ${firstnum * secondnum}");
     stdout.write("다른 수를 곱할 까요? (y/n): ");
-    choice = stdin.readLineSync();
+    againstinput = stdin.readLineSync();
+  }
+
+  // 식단표 출력 프로그램
+  // 날짜 입력:
+  // 급식을 진행하지 않는 날입니다.
+  // 다른 날짜의 급식을 출력할까요? (y/n)
+  // 날짜 입력:
+  // 0월 0일 식단표 [보리밥, 콩자반, 돼지갈비, 열무 김치, 된장국, 두유]
+  // 다른 날짜의 급식을 출력할까요? (y/n)
+  // [프로그램을 종료합니다.]
+
+  Map<String, List<String>> dietMenu = {
+    "1월 1일": ["보리밥", "콩자반", "돼지갈비", "열무 김치", "된장국", "두유"],
+    "6월 29일": ["김치 볶음밥", "계란후라이", "무생채", "미역국", "요구르트"],
+  };
+  stdout.write("날짜 입력: ");
+  var dateInput = stdin.readLineSync();
+  while (dateInput != null && dateInput.isNotEmpty) {
+    if (dietMenu.containsKey(dateInput)) {
+      stdout.writeln("$dateInput 식단표: ${dietMenu[dateInput]}");
+    } else {
+      stdout.writeln("급식을 진행하지 않는 날입니다.");
+    }
+    stdout.write("다른 날짜의 급식을 출력할까요? (y/n): ");
+    var continueInput = stdin.readLineSync();
+    if (continueInput == 'n' || continueInput == 'N') {
+      break;
+    }
+    stdout.write("날짜 입력: ");
+    dateInput = stdin.readLineSync();
   }
 }
