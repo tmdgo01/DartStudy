@@ -7,7 +7,7 @@ void main() {
   var userInput = stdin.readLineSync(encoding: utf8);
   stdout.writeln("입력 값 : $userInput");
 
-  while (userInput != "[그만]") {
+  while (userInput != "stop") {
     stdout.write("[안녕하세요. 출력하실 내용을 입력해주세요: ]");
     userInput = stdin.readLineSync(encoding: utf8);
     stdout.writeln("입력 값 : $userInput");
@@ -43,4 +43,27 @@ void main() {
   var n1 = int.parse(slist[0]);
   var n2 = int.parse(slist[1]);
   stdout.writeln("결과3 : $n1 + $n2 = ${n1 + n2}");
+
+  // 문제 2
+  // 다음은 이 프로그램의 실행 결과입니다. 실행 결과에 맞는 코드 작성
+  // 숫자 입력:
+  // 곱할 숫자 입력:
+  // 결과:
+  // 다른 수를 곱할 까요? (y/n):
+  stdout.write("숫자 입력: ");
+  var num1 = int.parse(stdin.readLineSync()!);
+  stdout.write("곱할 숫자 입력: ");
+  var num2 = int.parse(stdin.readLineSync()!);
+  stdout.writeln("결과: $num1 * $num2 = ${num1 * num2}");
+  stdout.write("다른 수를 곱할 까요? (y/n): ");
+  var choice = stdin.readLineSync();
+  while (choice == 'y' || choice == 'Y') {
+    stdout.write("숫자 입력: ");
+    num1 = int.parse(stdin.readLineSync()!);
+    stdout.write("곱할 숫자 입력: ");
+    num2 = int.parse(stdin.readLineSync()!);
+    stdout.writeln("결과: $num1 * $num2 = ${num1 * num2}");
+    stdout.write("다른 수를 곱할 까요? (y/n): ");
+    choice = stdin.readLineSync();
+  }
 }
