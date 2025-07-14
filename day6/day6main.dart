@@ -178,12 +178,51 @@ void main() async {
   stdout.writeln("총 $rounds 라운드가 진행되었습니다.");
   stdout.writeln("가위바위보 세계를 종료합니다.");
 
-  var result = await readFileToString("C:/Users/ASD/Desktop/test/day6/src.txt");
+  // file read
+  final filePath = "C:/Users/ASD/Desktop/test/day6/src.txt";
+
+  // 파일 전체 문자열 출력
+  var result = await readFileToString(filePath);
   print(result);
+
+  // 파일 라인 단위로 읽기
+  List<String> fileContent = await readFileToList(filePath);
+
+  var dstSink = File(filePath).openWrite(mode: FileMode.append); // append 모드
+  dstSink.writeln(": => FILE ACCESSED ${DateTime.now()}");
+
+  for (var fileLine in fileContent) {
+    List<String> slist = fileLine.split(',');
+
+    // 에러 방지를 위한 검증
+    if (slist.length >= 2) {
+      int iVar1 = int.tryParse(slist[0].trim()) ?? 0;
+      int iVar2 = int.tryParse(slist[1].trim()) ?? 0;
+
+      dstSink.writeln("iVar1: $iVar1, iVar2: $iVar2");
+      print("$iVar1 x $iVar2 = ${iVar1 * iVar2}");
+    }
+  }
+
+  await dstSink.flush(); // 버퍼 비우기
+  await dstSink.close(); // 반드시 닫기
 }
 
+// 파일 전체 내용을 문자열로 읽기
 Future<String> readFileToString(String filename) async {
   var file = File(filename);
-  String fileContent = await file.readAsString();
-  return fileContent;
+  return await file.readAsString();
+}
+
+// 파일을 줄 단위 리스트로 읽기
+Future<List<String>> readFileToList(String filename) async {
+  Stream<String> lines = File(
+    filename,
+  ).openRead().transform(utf8.decoder).transform(LineSplitter());
+
+  List<String> slist = [];
+  await for (var line in lines) {
+    slist.add(line);
+  }
+  return slist;
 }
