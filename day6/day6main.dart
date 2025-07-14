@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-void main() {
+void main() async {
   // 한글 인식 가능 : utf8
   stdout.write("[안녕하세요. 출력하실 내용을 입력해주세요: ]");
   var userInput = stdin.readLineSync(encoding: utf8);
@@ -169,7 +169,7 @@ void main() {
     "[System]: 게임 종료! 당신의 점수: $userScore, [System]: $computerScore",
   );
   if (userScore > computerScore) {
-    stdout.writeln("축하합니다! 당신이 이겼습니다. 무사히 이 세계를 살아갈 수 있습니다.");
+    stdout.writeln("축하합니다! 이겼습니다. 당신은 무사히 이 세계를 살아갈 수 있습니다.");
   } else if (computerScore > userScore) {
     stdout.writeln("[System]이 이겼습니다. 당신이 사망합니다.");
   } else {
@@ -177,4 +177,13 @@ void main() {
   }
   stdout.writeln("총 $rounds 라운드가 진행되었습니다.");
   stdout.writeln("가위바위보 세계를 종료합니다.");
+
+  var result = await readFileToString("C:/Users/ASD/Desktop/test/day6/src.txt");
+  print(result);
+}
+
+Future<String> readFileToString(String filename) async {
+  var file = File(filename);
+  String fileContent = await file.readAsString();
+  return fileContent;
 }
