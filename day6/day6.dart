@@ -85,9 +85,9 @@ void main() async {
     dir.createSync(recursive: true);
   }
   for (var entry in files.entries) {
-    var file = File('${dir.path}/${entry.key}');
-    var sink = file.openWrite(mode: FileMode.write);
-    sink.write(entry.value);
+    var file22 = File('${dir.path}/${entry.key}');
+    var sink22 = file22.openWrite(mode: FileMode.write);
+    sink22.write(entry.value);
     // await sink.flush();
     // await sink.close();
   }
