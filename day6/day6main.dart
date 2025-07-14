@@ -127,49 +127,51 @@ void main() {
     stdout.writeln(""); // 줄 바꿈
   }
 
-  // 컴퓨터랑 랜덤 가위바위보
+  // [System]와 가위바위보
   // 3 선승제
-  // 내 점수: , 컴퓨터 점수:
+  // 내 점수: , [System] 점수:
   // 프로그램 종료
   var choices = ['가위', '바위', '보'];
   var userScore = 0;
   var computerScore = 0;
   var rounds = 0;
-  stdout.writeln("가위 바위 보 게임을 시작합니다! 3 선승제입니다.");
+  stdout.writeln("게임을 시작한다. 3번 먼저 이겨야 산다.");
   while (userScore < 3 && computerScore < 3) {
-    stdout.write("가위, 바위, 보 중 하나를 선택하세요: ");
+    stdout.write("가위, 바위, 보!: ");
     var userChoice = stdin.readLineSync(encoding: utf8);
 
     if (userChoice == null || !choices.contains(userChoice)) {
-      stdout.writeln("잘못된 입력입니다. 다시 시도하세요.");
+      stdout.writeln("장난하나. 다시.");
       continue;
     }
 
     var computerChoice = choices[DateTime.now().millisecondsSinceEpoch % 3];
-    stdout.writeln("컴퓨터의 선택: $computerChoice");
+    stdout.writeln("[System]: $computerChoice");
 
     if (userChoice == computerChoice) {
-      stdout.writeln("무승부입니다.");
+      stdout.writeln("다시.");
     } else if ((userChoice == '가위' && computerChoice == '보') ||
         (userChoice == '바위' && computerChoice == '가위') ||
         (userChoice == '보' && computerChoice == '바위')) {
       userScore++;
-      stdout.writeln("사용자 승리! 현재 점수 - 사용자: $userScore, 컴퓨터: $computerScore");
+      stdout.writeln("꽤 하는군. 현재 점수: $userScore, [System]: $computerScore");
     } else {
       computerScore++;
-      stdout.writeln("컴퓨터 승리! 현재 점수 - 사용자: $userScore, 컴퓨터: $computerScore");
+      stdout.writeln("별 거 아니군. 현재 점수: $userScore, [System]: $computerScore");
     }
 
     rounds++;
   }
-  stdout.writeln("게임 종료! 최종 점수 - 사용자: $userScore, 컴퓨터: $computerScore");
+  stdout.writeln(
+    "[System]: 게임 종료! 당신의 점수: $userScore, [System]: $computerScore",
+  );
   if (userScore > computerScore) {
-    stdout.writeln("축하합니다! 당신이 이겼습니다.");
+    stdout.writeln("축하합니다! 당신이 이겼습니다. 무사히 이 세계를 살아갈 수 있습니다.");
   } else if (computerScore > userScore) {
-    stdout.writeln("컴퓨터가 이겼습니다. 다음에 다시 도전하세요!");
+    stdout.writeln("[System]이 이겼습니다. 당신이 사망합니다.");
   } else {
     stdout.writeln("무승부입니다. 다음에 다시 도전하세요!");
   }
   stdout.writeln("총 $rounds 라운드가 진행되었습니다.");
-  stdout.writeln("프로그램을 종료합니다.");
+  stdout.writeln("가위바위보 세계를 종료합니다.");
 }
