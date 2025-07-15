@@ -70,7 +70,7 @@ void main() async {
         request.response
           ..statusCode = HttpStatus.ok
           ..write("I wanna go home");
-      } else if (request.uri.path.contains("'/add'")) {
+      } else if (request.uri.path.contains("/add")) {
         print("\$ http response is result of 'add' operation");
         print("\$ send 200 OK");
 
