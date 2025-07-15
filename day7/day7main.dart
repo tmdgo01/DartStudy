@@ -26,7 +26,7 @@ Future<int> async3() async {
   return 10;
 }
 
-void main() {
+void main() async {
   List<String> fruits = ["Apple is Green", "  Banana n  ", "AppleMango"];
   print("AppleMango in List? : ${fruits.contains("AppleMango")}");
   print("Starts with Apple? : ${fruits[0].startsWith("Apple")}");
@@ -54,4 +54,38 @@ void main() {
         print('sum : $sum < time ${t2.difference(t1)} >');
       })
       .catchError(print);
+
+  var ip = InternetAddress.loopbackIPv4;
+  var port = 4040;
+
+  var server = await HttpServer.bind(ip, port);
+
+  await for (HttpRequest request in server) {
+    try {
+      // http://127.0.01:4040/에서 ip와 port를 제외한 이후 문자열이 /만 있는지 확인
+      if (request.uri.path == '/') {
+        print('\$ http response');
+        print("\$ 200 OK");
+
+        request.response
+          ..statusCode = HttpStatus.ok
+          ..write("I wanna go home");
+      } else if (request.uri.path.contains("'/add'")) {
+        print("\$ http response is result of 'add' operation");
+        print("\$ send 200 OK");
+
+        var varlist = request.uri.path.split(',');
+        var result123 = int.parse(varlist[1]) + int.parse((varlist[2]));
+
+        request.response
+          ..statusCode = HttpStatus.ok
+          ..write("${varlist[1]} + ${varlist[2]} = ${result123}");
+      }
+      await request.response.close();
+    } catch (e) {
+      print("error $e");
+    }
+  }
+
+  print("server activated : ${server.address.address}, ${server.port}");
 }
