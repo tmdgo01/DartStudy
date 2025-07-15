@@ -10,7 +10,7 @@ void printhttprequestinfo(HttpClientResponse response, String content) {
 
 Future main() async {
   var serverip = InternetAddress.loopbackIPv4.address;
-  var serverport = 3000;
+  var serverport = 30000;
   var serverpath;
   var httpclient = HttpClient();
   var httpresponsecontent;
@@ -18,6 +18,17 @@ Future main() async {
 
   HttpClientRequest httprequest;
   HttpClientResponse httpresponse;
+
+  print("|-> POST JSON Format");
+  Map jsoncontent = {
+    "Korea": "Seoul",
+    "USA": "Washington DC",
+    "Japan": "Tokyo",
+    "China": "Beijing",
+  };
+  var content = jsonEncode(jsoncontent);
+
+  serverpath = "/";
 
   print("|-> Get/");
   serverpath = "";
