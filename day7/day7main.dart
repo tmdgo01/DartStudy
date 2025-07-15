@@ -80,6 +80,24 @@ void main() async {
         request.response
           ..statusCode = HttpStatus.ok
           ..write("${varlist[1]} + ${varlist[2]} = ${result123}");
+      } else if (await File(request.uri.path.substring(1)).exists() == true) {
+        print("\$ http response is ${request.uri.path} file transfer");
+        print("\$ send 200 ok");
+
+        var file = File(request.uri.path.substring(1));
+        var filecontent = await file.readAsString();
+
+        request.response
+          ..statusCode = HttpStatus.ok
+          ..headers.contentType = ContentType('text', 'plain', charset: "utf-8")
+          ..write(filecontent);
+      } else {
+        print("\$ unsupported uri");
+        print("\$ send 404 not found");
+
+        request.response
+          ..statusCode = HttpStatus.notFound
+          ..write("Unsupported URI");
       }
       await request.response.close();
     } catch (e) {
