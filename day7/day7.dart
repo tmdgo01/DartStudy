@@ -1,9 +1,8 @@
-import 'dart:math';
-import 'dart:io';
-import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
 
-Future main() async {
+void main() async {
   // Q1
   // dart 표준 라이브러리 사이트 https://api.dart.dev/dart-math/ 를 참고하여
   // 1 ~ 10 까지의 숫자 중 랜덤한 숫자를 A 와 B 라고 선언된 두 변수에 담고
@@ -30,29 +29,32 @@ Future main() async {
   // [Korea의 수도는 Seoul 입니다.]
   // 단, 수도가 입력되지 않은 경우는 다음과 같이 출력되어야 합니다.
   // [유효하지 않은 수도를 입력하셨습니다.]
-
-  Map<String, String> capital = {
-    "Korea": "Seoul",
-    "Japan": "Tokyo",
-    "China": "Beijing",
-    "Canada": "Ottawa",
-    "Australia": "Canberra",
-    "USA": "Washington DC",
-    "France": "Paris",
-    "Germany": "Berlin",
-    "Italy": "Rome",
-    "Spain": "Madrid",
+  // localhost:8080/all 를 입력하면 가지고 있는 나라와 수도를 모두 출력
+  // localhost:8080/delete?country=Korea 를 입력하면 해당 나라를 삭제
+  // 삭제 후 남아있는 데이터 JSON 반환
+  // localhost:8080/push?country=Korea&capital=Seoul 를 입력하면 해당 나라와 수도를 추가
+  // localhost:8080/update?country=Korea&capital=Seoul 를 입력하면 해당 나라의 수도를 수정
+  final capital = <String, String>{
+    'Korea': 'Seoul',
+    'USA': 'Washington D.C.',
+    'Japan': 'Tokyo',
+    'China': 'Beijing',
+    'France': 'Paris',
+    'Germany': 'Berlin',
+    'Italy': 'Rome',
   };
 
-  var server = await HttpServer.bind(InternetAddress.loopbackIPv4, 8080);
-  print("Server running on http://${server.address.address}:${server.port}");
+  final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 8080);
+  print('Listening on http://${server.address.host}:${server.port}');
 
   await for (HttpRequest request in server) {
     final method = request.method;
-    final path = request.uri.path; // 예: /capital=Korea
+    final path = request.uri.path;
 
     try {
       if (method == 'GET') {
+        final path = request.uri.path;
+
         if (path.startsWith('/capital=')) {
           final country = Uri.decodeComponent(
             path.substring('/capital='.length),
@@ -70,27 +72,14 @@ Future main() async {
               ..write("유효하지 않은 수도를 입력하셨습니다.");
           }
         } else if (path == '/all') {
-          // 예 /all
-          // 모든 나라-수도 JSON 출력
           request.response
             ..statusCode = HttpStatus.ok
             ..headers.contentType = ContentType.json
             ..write(jsonEncode(capital));
-        } else {
-          request.response
-            ..statusCode = HttpStatus.badRequest
-            ..headers.contentType = ContentType.text
-            ..write("잘못된 요청입니다.");
-        }
-      } else if (method == 'DELETE') {
-        if (path.startsWith('/delete=')) {
-          // 예: /delete=Korea
-          final country = Uri.decodeComponent(
-            path.substring('/delete='.length),
-          );
-          if (capital.containsKey(country)) {
+        } else if (path == '/delete') {
+          final country = request.uri.queryParameters['country'];
+          if (country != null && capital.containsKey(country)) {
             capital.remove(country);
-            // 삭제 후 남아있는 데이터 JSON 반환
             request.response
               ..statusCode = HttpStatus.ok
               ..headers.contentType = ContentType.json
@@ -101,25 +90,31 @@ Future main() async {
               ..headers.contentType = ContentType.text
               ..write("삭제할 나라를 찾을 수 없습니다.");
           }
-        } else {
-          request.response
-            ..statusCode = HttpStatus.badRequest
-            ..headers.contentType = ContentType.text
-            ..write("잘못된 DELETE 요청입니다.");
-        }
-      } else if (method == 'PUT') {
-        if (path.startsWith('/update=')) {
-          final params = Uri.decodeComponent(path.substring('/update='.length));
-          final parts = params.split(',');
-          if (parts.length == 2) {
-            final country = parts[0].trim();
-            final newCapital = parts[1].trim();
+        } else if (path == '/push') {
+          final country = request.uri.queryParameters['country'];
+          final capitalCity = request.uri.queryParameters['capital'];
+          if (country != null && capitalCity != null) {
+            capital[country] = capitalCity;
+            request.response
+              ..statusCode = HttpStatus.ok
+              ..headers.contentType = ContentType.json
+              ..write(jsonEncode(capital));
+          } else {
+            request.response
+              ..statusCode = HttpStatus.badRequest
+              ..headers.contentType = ContentType.text
+              ..write("잘못된 요청입니다. country와 capital을 모두 입력해주세요.");
+          }
+        } else if (path == '/update') {
+          final country = request.uri.queryParameters['country'];
+          final capitalCity = request.uri.queryParameters['capital'];
+          if (country != null && capitalCity != null) {
             if (capital.containsKey(country)) {
-              capital[country] = newCapital;
+              capital[country] = capitalCity;
               request.response
                 ..statusCode = HttpStatus.ok
-                ..headers.contentType = ContentType.text
-                ..write("$country의 수도가 $newCapital(으)로 수정되었습니다.");
+                ..headers.contentType = ContentType.json
+                ..write(jsonEncode(capital));
             } else {
               request.response
                 ..statusCode = HttpStatus.notFound
@@ -130,59 +125,26 @@ Future main() async {
             request.response
               ..statusCode = HttpStatus.badRequest
               ..headers.contentType = ContentType.text
-              ..write("잘못된 형식입니다. /update=나라,수도 형식으로 요청하세요.");
+              ..write("잘못된 요청입니다. country와 capital을 모두 입력해주세요.");
           }
         } else {
           request.response
             ..statusCode = HttpStatus.badRequest
             ..headers.contentType = ContentType.text
-            ..write("잘못된 PUT 요청입니다.");
+            ..write("잘못된 요청입니다.");
         }
-      } else if (method == 'POST') {
-        if (path.startsWith('/add=')) {
-          final params = Uri.decodeComponent(path.substring('/add='.length));
-          final parts = params.split(',');
-          if (parts.length == 2) {
-            final country = parts[0].trim();
-            final newCapital = parts[1].trim();
-            if (capital.containsKey(country)) {
-              request.response
-                ..statusCode = HttpStatus.conflict
-                ..headers.contentType = ContentType.text
-                ..write("이미 존재하는 나라입니다.");
-            } else {
-              capital[country] = newCapital;
-              request.response
-                ..statusCode = HttpStatus.ok
-                ..headers.contentType = ContentType.text
-                ..write("$country과(와) $newCapital 수도가 추가되었습니다.");
-            }
-          } else {
-            request.response
-              ..statusCode = HttpStatus.badRequest
-              ..headers.contentType = ContentType.text
-              ..write("잘못된 형식입니다. /add=나라,수도 형식으로 요청하세요.");
-          }
-        } else {
-          request.response
-            ..statusCode = HttpStatus.badRequest
-            ..headers.contentType = ContentType.text
-            ..write("잘못된 POST 요청입니다.");
-        }
-      } else {
-        // 지원하지 않는 메서드
-        request.response
-          ..statusCode = HttpStatus.methodNotAllowed
-          ..headers.contentType = ContentType.text
-          ..write("지원하지 않는 HTTP 메서드입니다.");
-      }
+      } else if (method == 'DELETE') {}
     } catch (e) {
+      print('Error: $e');
       request.response
         ..statusCode = HttpStatus.internalServerError
         ..headers.contentType = ContentType.text
-        ..write("서버 오류가 발생했습니다: $e");
+        ..write("서버 내부 오류가 발생했습니다.");
+    } finally {
+      await request.response.close();
     }
-
-    await request.response.close();
   }
+  print('Server stopped.');
+  await server.close();
+  print('Server closed.');
 }
