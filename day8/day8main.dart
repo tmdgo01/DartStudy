@@ -61,11 +61,33 @@ Future<void> readDB(Map db, HttpRequest request) async {
   await printandsendhttpresponse(db, request, content);
 }
 
+// 현재 코드에서 updateDB 부분은 수정할 데이터가 들어가 있는 값을 body에 넣어서 사용 중
+// 이 부분을 수정할 데이터의 key 값을 요청의 마지막 부분에 담아서 수정하려 한다.
+// 예를 들어, PUT 127.0.0.1:4040/api/0001
+// 예시의 방식을 이용하여 key 값을 조회
+// body에 {"data" : "Cheongju"} 를 입력했을 때 key 값을 수정
+// 수정 전 코드 :
+// Future<void> updateDB(Map db, HttpRequest request) async {
+//   var content = await utf8.decoder.bind(request).join();
+//   var transaction = jsonDecode(content) as Map;
+//   var key = transaction.keys.first;
+//   var value = transaction[key];
+
+//   String response;
+//   if (db.containsKey(key)) {
+//     db[key] = value;
+//     response = "Updated: $key = $value";
+//   } else {
+//     response = "Error: $key does not exist";
+//   }
+
+//   await printandsendhttpresponse(db, request, response);
+// }
 Future<void> updateDB(Map db, HttpRequest request) async {
+  var key = request.uri.pathSegments.last;
   var content = await utf8.decoder.bind(request).join();
-  var transaction = jsonDecode(content) as Map;
-  var key = transaction.keys.first;
-  var value = transaction[key];
+  var body = jsonDecode(content) as Map;
+  var value = body['data'];
 
   String response;
   if (db.containsKey(key)) {
@@ -102,7 +124,7 @@ Future<void> main() async {
   await for (HttpRequest request in server) {
     printhttprequestinfo(request);
 
-    if (request.uri.path == '/api') {
+    if (request.uri.path.startsWith('/api')) {
       try {
         switch (request.method) {
           case 'GET':
