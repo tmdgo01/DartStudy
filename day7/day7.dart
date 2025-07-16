@@ -42,6 +42,8 @@ void main() async {
     'France': 'Paris',
     'Germany': 'Berlin',
     'Italy': 'Rome',
+    'Australia': 'Canberra',
+    'Canada': 'Ottawa',
   };
 
   final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 8080);
