@@ -21,5 +21,5 @@ day6 : day5 복습, 사용자 입출력 처리, 파일 입출력, 가위바위�
 <br />
 day7 : day6 복습, 문자열/리스트 조작, 시스템 조회, HTTP server 작성, POSTMAN 사용, 파일 읽기
 <br />
-day8 : day7 복습, REST API 기반 CRUD 구현,Flutter testapp 프로젝트 생성
+day8 : day7 복습, REST API 기반 CRUD 구현, Flutter testapp 프로젝트 생성
 <br />
