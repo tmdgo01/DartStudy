@@ -1,6 +1,10 @@
+// library_management
 // 수정 사항
 // 책 수량
 // 사용자 관리( 등록, 수정, 삭제 )
+// 전체 사용자 조회 (GET /users)
+// 현재 대여 상태 전체 출력 (GET /library/status)
+// 특정 사용자 대여 내역 (GET /library/user/{id})
 
 import 'dart:convert';
 import 'dart:io';
@@ -25,7 +29,7 @@ final Map<String, String?> rentalStatus = {
 
 Future<void> main() async {
   final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 3000);
-  print('📚 도서관 서버 실행 중: http://${server.address.address}:${server.port}');
+  print('[-] 도서관 서버 실행 중: http://${server.address.address}:${server.port}');
 
   await for (HttpRequest request in server) {
     final method = request.method;
@@ -134,7 +138,7 @@ Future<void> handleReturn(
 }
 
 Future<void> sendResponse(HttpRequest request, String message) async {
-  print("📩 응답: $message");
+  print("[+] 응답: $message");
   request.response
     ..statusCode = HttpStatus.ok
     ..headers.contentType = ContentType.text
