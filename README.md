@@ -23,6 +23,6 @@ day7 : day6 복습, 문자열/리스트 조작, 시스템 조회, HTTP server �
 <br />
 day8 : day7 복습, REST API 기반 CRUD 구현, Flutter testapp 프로젝트 생성
 <br />
-day9 : day8 복습, Flutter 위젯(Icon, Image, Row/Column), Expanded 클래스 등, Counter 앱 구현(github.com/tmdgo01/flutter_counter), 구구단 앱 구현/다른 사용자 프로젝트 브랜치에 커밋(https://github.com/yjaewon1022/flutter-counter/tree/tmdgo)
+day9 : day8 복습, Flutter 위젯(Icon, Image, Row/Column), Expanded 클래스 등, Counter 앱 구현(https://github.com/tmdgo01/flutter_studyapp), 구구단 앱 구현/다른 사용자 프로젝트 브랜치에 커밋(https://github.com/yjaewon1022/flutter-counter/tree/tmdgo)
 <br />
-day10 : day9 복습,
+day10 ~ ...
